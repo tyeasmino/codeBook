@@ -1,0 +1,7 @@
+react is a single page web application
+react router 
+
+react router is fast for loading 
+
+component - 2 types, function and class based
+hook - usestate,useeffect,useref,usereducer,usecontext etc 
