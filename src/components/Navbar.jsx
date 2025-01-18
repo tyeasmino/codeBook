@@ -103,8 +103,8 @@ const Navbar = () => {
 
             { showProfileMenu && <ul className='text-[14px] shadow-md rounded w-[150px] font-semibold px-3 py-1 bg-white right-5 top-10 absolute dark:bg-dark'>
                                   <li>All eBooks</li>
-                                  <li>Login</li>
-                                  <li>Register</li>
+                                  <li>Login</li>  
+                                  <li> <Link to="/register"> Register </Link> </li>
               </ul>
             }
 

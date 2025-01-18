@@ -2,17 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { CiMenuKebab } from "react-icons/ci";
 import Card from '../components/Card';
 import { getProductList } from '../apiServices/ProductServices';
+import { useLocation } from 'react-router';
 
 const AllProducts = () => {
 
     const [products, setProducts] = useState()
+    const search = useLocation().search
+    const searchTerm = new URLSearchParams(search).get('q')
+    console.log(search, searchTerm);
 
-    console.log(products)
 
     useEffect(()=>{
         async function fetchAllProduct() {
             try{
-                const productsData = await getProductList();
+                const productsData = await getProductList(searchTerm);
                 setProducts(productsData);
             }
             catch(error){

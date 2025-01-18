@@ -1,6 +1,6 @@
 
-export const getProductList = async () =>{
-    const productList = await fetch("http://localhost:8000/products")
+export const getProductList = async (searchTerm) =>{
+    const productList = await fetch(`http://localhost:8000/products?q=${searchTerm || ''}`)
     const data  = await productList.json()
    return data;
 }

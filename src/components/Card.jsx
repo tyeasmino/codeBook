@@ -1,14 +1,19 @@
-import React, { useState } from 'react'
-import { IoIosAdd } from "react-icons/io";
+import React, { useEffect, useState } from 'react'
+import { IoIosAdd, IoIosRemove } from "react-icons/io";
 import Rating from './Rating';
 import { Link } from 'react-router';
 import { useCart } from '../context/cartContext';
 
 const Card = ({product}) => {
 
-    const { cartList, addToCart } = useCart();
+    const { cartList, addToCart, removeFromCart } = useCart();
+    const [inCart, setInCart] = useState(false) 
 
-    console.log("CartList",cartList)
+    useEffect(() => {
+        const cartItem = cartList.find((item)=>item.id == product?.id)
+        console.log(cartItem);
+        cartItem ? setInCart(true) : setInCart(false) 
+    }, [cartList, product.id])
 
     
     return (
@@ -49,10 +54,19 @@ const Card = ({product}) => {
                 <div className="flex items-center justify-between">
                     <p className='text-3xl text-black font-semibold'>${product.price}</p>
                     
-                    <button onClick={() => addToCart(product)} className='flex items-center gap-2 
-                    bg-blue-500 text-white px-3 py-2'>
-                    Add to cart <IoIosAdd/>
-                    </button>
+
+                    { !inCart && 
+                        <button onClick={() => addToCart(product)} className='flex items-center gap-2 
+                        bg-blue-500 text-white px-3 py-2'>
+                        Add to cart <IoIosAdd/>
+                        </button>
+                    } 
+                    { inCart && 
+                        <button onClick={() => removeFromCart(product)} className='flex items-center gap-2 
+                        bg-white text-blue-500 px-3 py-2'>
+                        Remove from cart <IoIosRemove/>
+                        </button>
+                    } 
 
 
                 </div>

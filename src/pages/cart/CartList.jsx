@@ -7,9 +7,8 @@ const CartList = () => {
 
   // onClick={() => setCartCheck(!cartCheck)}
 
-  const { cartList, total } = useCart() 
+  const { cartList, clearFromCart,total } = useCart() 
   const [cartCheck, setCartCheck] = useState(false)
-  var totalPrice = 0
 
   return (
     <>
@@ -39,9 +38,14 @@ const CartList = () => {
       <button
         // onClick={() => setCartCheck(!cartCheck)}
         onClick={()=> setCartCheck(!cartCheck)}
-        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        className="m-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
         PLACE ORDER
+      </button>
+      <button onClick={()=> clearFromCart()}
+        className="m-5 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        CLEAR CART
       </button>
     </section>
     {/* {cartCheck && <CartCheckout setCartCheck={setCartCheck} />} */}

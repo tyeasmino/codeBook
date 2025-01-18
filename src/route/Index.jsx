@@ -7,6 +7,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import AllProducts from '../pages/AllProducts';
 import CartList from '../pages/cart/CartList';
+import SignUp from '../pages/Register/SignUp';
 
 
 const Index = () => {
@@ -23,6 +24,7 @@ const Index = () => {
                 <Route path="/product/:id" element={<ProductDetails/>} />
 
                 <Route path="/cart" element={<CartList/>} />
+                <Route path="/register" element={<SignUp/>} />
 
 
 
