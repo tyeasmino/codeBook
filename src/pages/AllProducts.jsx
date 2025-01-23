@@ -3,17 +3,21 @@ import { CiMenuKebab } from "react-icons/ci";
 import Card from '../components/Card';
 import { getProductList } from '../apiServices/ProductServices';
 import { useLocation } from 'react-router';
+import Looding from '../components/Looding';
 
 const AllProducts = () => {
 
     const [products, setProducts] = useState()
-    const search = useLocation().search
-    const searchTerm = new URLSearchParams(search).get('q')
-    console.log(search, searchTerm);
+    const [isLooding, setIsLooding] = useState(false)
 
+    const search = useLocation().search;
+    const searchTerm = new URLSearchParams(search).get("q");
+
+    // console.log(searchTerm)
 
     useEffect(()=>{
         async function fetchAllProduct() {
+            setIsLooding(true)
             try{
                 const productsData = await getProductList(searchTerm);
                 setProducts(productsData);
@@ -21,14 +25,22 @@ const AllProducts = () => {
             catch(error){
                 alert(error.message)
             }
+            finally{
+                setIsLooding(false)
+            }
         }
         fetchAllProduct()
-    },[])
+    },[searchTerm])
 
 
 
     return (
-        <section>
+        <section className='relative'>
+
+{
+    isLooding && <Looding/>
+}
+        
             <div className="header flex justify-between p-10 font-bold">
                 <h1>All eBooks (15)</h1>
                 <p className='bg-gray-200 p-3 rounded-md'>

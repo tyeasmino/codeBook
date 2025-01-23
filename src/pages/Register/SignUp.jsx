@@ -1,11 +1,13 @@
 import React from 'react'
-import { signUp } from '../../apiServices/AuthServices'
+import { signUp } from '../../apiServices/authServices';
+import { useNavigate } from 'react-router';
 
 const SignUp = () => {
 
-    const handleSubmit = async (event) => {
-        event.preventDefault()
+    const navigate = useNavigate()
+    const handelSubmit = async (event) => {
 
+        event.preventDefault();
         try {
             const authDetail = {
                 name: event.target.name.value,
@@ -13,38 +15,33 @@ const SignUp = () => {
                 password: event.target.password.value
             }
 
-            const data = await signUp(authDetail)
-             
-        } catch(e) {
-            alert()
+            const data = await signUp(authDetail);
+            data.accessToken? navigate("/login") : alert("error"); 
+
+  
+        } catch {
+            alert("")
         }
+
     }
 
+    return (
+        <div>
+            <form onSubmit={handelSubmit} action="" className='flex flex-col gap-5'>
+                <div className="">
+                    <input className='bg-blue-500' type="text" name='name' placeholder='Name' />
+                </div>
+                <div className="">
+                    <input className='bg-green-700' type="email" name='email' placeholder='Enter Email' />
+                </div>
+                <div className="">
+                    <input className='bg-red-700' type="password" name="password" id="" placeholder='EnterPassword' />
+                </div>
 
-
-
-  return (
-    <div className='max-w-screen-md shadow-violet-500 m-auto my-20 shadow-md p-20'>
-        <form action='' onSubmit={handleSubmit} className='flex flex-col gap-5'>
-            <div className='flex flex-col gap-2 shadow p-2'>
-                <label className='text-[20px] font-semibold' htmlFor="name">Your Name</label> 
-                <input className='bg-violet-50 rounded px-10 py-3 border border-violet-500' type="text" name='name'  />
-            </div>
-            <div className='flex flex-col gap-2 shadow p-2'>
-                <label htmlFor="email" className='text-[20px] font-semibold' >Your Email</label>
-                <input className='bg-violet-50 rounded px-10 py-3 border border-violet-500' type="email" name='email'  />
-            </div>
-            <div className='flex flex-col gap-2 shadow p-2'>
-                <label htmlFor="password" className='text-[20px] font-semibold'>Your Password</label>
-                <input className='bg-violet-50 rounded px-10 py-3 border border-violet-500' type="password" name='password'  />
-            </div>
-            <div>
-                <button type='submit' className='bg-violet-500 text-white px-8 py-3 rounded-md'>SignUp</button>
-            </div>
-        </form>
-    </div>
-
-  )
+                <button className='bg-yellow-300' type='submit'>SignUp</button>
+            </form>
+        </div>
+    )
 }
 
 export default SignUp

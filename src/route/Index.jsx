@@ -7,7 +7,9 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import AllProducts from '../pages/AllProducts';
 import CartList from '../pages/cart/CartList';
-import SignUp from '../pages/Register/SignUp';
+import SignUp from '../pages/register/SignUp';
+import Login from '../pages/register/Login';
+import ProtectedRoute from './ProtectedRoute';
 
 
 const Index = () => {
@@ -23,11 +25,10 @@ const Index = () => {
 
                 <Route path="/product/:id" element={<ProductDetails/>} />
 
-                <Route path="/cart" element={<CartList/>} />
-                <Route path="/register" element={<SignUp/>} />
+                <Route path="/cart" element={ <ProtectedRoute> <CartList/> </ProtectedRoute>} />
 
-
-
+                <Route path="/signUp" element={<SignUp/>} />
+                <Route path="/login" element={<Login/>} />
 
             </Routes>
             <Footer/>

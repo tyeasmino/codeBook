@@ -10,18 +10,9 @@ import { IoIosAdd, IoIosRemove } from 'react-icons/io';
 const ProductDetails = () => {
 
   const [product, setProductDetails] = useState()
-  const { cartList, addToCart, removeFromCart } = useCart();
-  const [inCart, setInCart] = useState(false)
+
 
   const { id } = useParams(); // Get the 'id' from the URL
-  
-  useEffect(() => {
-    const cartItem = cartList.find((item) => item.id == id)
-    console.log(cartItem);
-    cartItem ? setInCart(true) : setInCart(false)
-  }, [cartList, id])
-
-
   // products.find((p) => p.id === parseInt(id, 10)); // Find the product (parse id to integer)
   // const product = products.find((p)=>p.id === parseInt(id, 10));
 
@@ -41,6 +32,26 @@ const ProductDetails = () => {
     }
     fetchDetails()
   }, [])
+
+
+  const { cartList, addToCart, removeToCart } = useCart();
+
+  const [inCart, setInCart] = useState(false);
+
+  useEffect(() => {
+    const cartItem = cartList.find((item) => item.id == id)
+    console.log(cartItem)
+
+    if (cartItem) {
+      setInCart(true)
+    }
+    else {
+      setInCart(false)
+    }
+  }, [cartList, id])
+
+
+
 
 
   return (
@@ -87,18 +98,22 @@ const ProductDetails = () => {
                             px-3 rounded-md text-[10px] font-semibold'>{product?.size} MB</span>
             </div>
 
-            {!inCart &&
-              <button onClick={() => addToCart(product)} className='flex items-center gap-2 
-                      w-fit  bg-blue-500 text-white px-3 py-2'>
+            {
+              !inCart && <button onClick={() => addToCart(product)} className='flex items-center gap-2 
+                w-fit bg-blue-500 text-white px-3 py-2'>
                 Add to cart <IoIosAdd />
               </button>
             }
-            {inCart &&
-              <button onClick={() => removeFromCart(product)} className='flex items-center gap-2 
-                    w-fit    bg-red-600 text-white px-3 py-2'>
-                Remove from cart <IoIosRemove />
+
+            {
+              inCart && <button onClick={() => removeToCart(product)} className='flex items-center gap-2 
+                                              w-fit  bg-green-500 text-white px-3 py-2'>
+                Remove to cart <IoIosRemove />
               </button>
             }
+
+
+
             <p className='text-sm'>
               {product?.overview}
             </p>
